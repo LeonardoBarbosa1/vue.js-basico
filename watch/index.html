@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <span>Paciente</span><input type="text" v-model="paciente"> <br>
+        <ul>
+            <li v-for="l in lista"> Nome: {{ l.nome }}, Idade: {{ l.idade}}</li>
+        </ul>
+
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app', //# seleciona por id e . seleciona por class
+            data: {
+                paciente: '',
+                pacientes: [ 
+                    {nome: 'joao', idade: 20},
+                    {nome: 'jose', idade: 15},
+                    {nome: 'jorge', idade: 30},
+                    {nome: 'junior', idade: 20},
+                    {nome: 'julio', idade: 20},
+                    {nome: 'Leonardo', idade: 21}
+                ],
+                lista: []
+            },
+            methods: {},
+            computed: {},
+            // watch = observa a mudança de estado do data: paciente, 
+            // o nome do metodo dentro do watch deve ser o mesmo do atributo dentro de data:
+            watch: {
+                paciente(valorNovo){
+                    
+                    this.lista = this.pacientes.filter(p => p.nome.match(valorNovo))
+
+                    // O método match() em JavaScript é uma função de string 
+                    // que retorna um array contendo todas as correspondências 
+                    // de uma expressão regular em uma string.
+                }
+            }
+        }) //vm = ViewModel
+    </script>
+</body>
+
+</html>

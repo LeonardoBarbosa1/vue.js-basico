@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--1ª forma de fazer-->
+       <ul>                            <!--key = chave, pega cada indice do array-->
+            <li v-for="(curso, key) in cursos">{{key}} - {{ curso }}</li>
+       </ul>
+       <hr>
+       <!--2ª forma de fazer-->
+       <ul>
+            <li v-for="(curso, key) in cursos" v-text="key +' - '+ curso "></li>
+       </ul>
+       <hr>
+       <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(curso, key) in cursos2">
+                    <td>{{key}}</td>
+                    <td>{{ curso.titulo}}</td>
+                    <td>{{ curso.descricao}}</td>
+                </tr>
+            </tbody>
+       </table>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app', //# seleciona por id e . seleciona por class
+            data: {
+              cursos: ['Laravel', 'web completo', 'vue.js', 'banco de dados', 'solid'],
+              cursos2: {
+                1000: {
+                titulo: 'Laravel',
+                descricao: 'Domine o framework PHP mias poderoso do mundo'
+              },
+              1001: {
+                titulo: 'Banco de dados',
+                descricao: 'Aprenda os principais bancos de dados relacionais do mercado'
+              }
+              }
+            },
+            methods: {
+                
+            }
+        }) //vm = ViewModel
+        console.log(vm)
+    </script>
+</body>
+
+</html>

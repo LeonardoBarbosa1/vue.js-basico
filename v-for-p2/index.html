@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--1ª forma de fazer-->
+       <ul>                            <!--key = chave, pega cada indice do array-->
+            <li v-for="(curso, key) in cursos">{{key}} - {{ curso }}</li>
+       </ul>
+       <hr>
+       <!--2ª forma de fazer-->
+       <ul>
+            <li v-for="(curso, key) in cursos" v-text="key +' - '+ curso "></li>
+       </ul>
+       <hr>
+       <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(curso, key) in cursos2">
+                    <td>{{key}}</td>
+                    <td>{{ curso.titulo}}</td>
+                    <td>{{ curso.descricao}}</td>
+                </tr>
+            </tbody>
+       </table>
+       <hr>
+       <ul>
+        <!--Para que o vue.js entenda que todo o bloco de código
+        faz parte da publicação é necessario colocar o :key, 
+        passando o indentificador daquele objeto, no caso o ID-->
+            <li v-for="p in publicacoes" style="border: solid 1px; margin-bottom: 10px;" :key="p.id"> 
+                <div>
+                    {{ p.publicacao }}
+                    <hr>
+                    <input type="text">
+                </div>
+            </li>
+       </ul>
+       <button @click="misturarArray()">Misturar publicações</button>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app', //# seleciona por id e . seleciona por class
+            data: {
+              cursos: ['Laravel', 'web completo', 'vue.js', 'banco de dados', 'solid'],
+              cursos2: {
+                1000: {
+                titulo: 'Laravel',
+                descricao: 'Domine o framework PHP mias poderoso do mundo'
+              },
+              1001: {
+                titulo: 'Banco de dados',
+                descricao: 'Aprenda os principais bancos de dados relacionais do mercado'
+              }
+              },
+              publicacoes: [
+                {id: 1, publicacao: 'publicação 1'},
+                {id: 2, publicacao: 'publicação 2'},
+                {id: 3, publicacao: 'publicação 3'}
+              ]
+            },
+            methods: {
+                misturarArray(){
+                    let misturado = []
+
+                    misturado[0] = this.publicacoes[2]
+                    misturado[1] = this.publicacoes[0]
+                    misturado[2] = this.publicacoes[1]
+                    
+                    this.publicacoes = misturado
+                }
+            }
+        }) //vm = ViewModel
+        console.log(vm)
+    </script>
+</body>
+
+</html>

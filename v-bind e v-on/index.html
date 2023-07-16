@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+        .verde {
+            background-color: green;
+        }
+        .branco {
+            background-color: white;
+        }
+        .azul{
+            background-color: blue;
+
+        }
+        .vermelho{
+            background-color: red;
+
+        }
+        .borda{
+            border: 1px solid;
+        }
+        .div-principal{
+            width: 200px;
+            height: 200px;
+        }
+        .div-comum{
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-bind ou : = está manipulando as class HTML -->
+        <div class="borda div-principal" :class="cor">
+            Cor: {{ cor }}
+            <br>
+            Posição X do mouse: {{ posicaoX }}
+            Posição Y do mouse: {{ posicaoY }}
+        </div>
+        <hr>
+        <!-- v-on ou @ = captura um evento -->
+        
+        <div @click="mudarCor('verde')" class="borda div-comum verde">Clicar com o mouse</div>
+        <!-- @mouseover = quando entra dentro da div é feito um evento que torna a div principal azul -->
+        <!-- @mouseout = quando o mouse sai da div é feito um evento que torna a div principal branco -->
+        <div class="borda div-comum azul" @mouseover="mudarCor('azul')" @mouseout="mudarCor('branco')">Passar o mouse</div>
+        <div class="borda div-comum vermelho" @mouseover="mudarCor('vermelho')" @mouseout="mudarCor('branco')">Passar o mouse</div>
+        <!-- @mousemove = captura um evento de movimentação do mouse -->
+        <div class="borda div-comum" @mousemove="coordenadas($event)">Passar o mouse</div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app', //# seleciona por id e . seleciona por class
+            data: {
+                cor: 'Branco',
+                posicaoX: 0,
+                posicaoY: 0
+                },
+            methods: { 
+                mudarCor(c){
+                    this.cor = c
+                },
+                // e = $event que passamos na terceira div-comum
+                 coordenadas(e){
+                    this.posicaoX = e.clientX
+                    this.posicaoY = e.clientY
+                 }
+            }
+        }) //vm = ViewModel
+        console.log(vm)
+    </script>
+</body>
+</html>
